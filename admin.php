@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     exit;
 }
 
-// Обработка удаления записи
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_id'])) {
     $delete_id = $_POST['delete_id'];
 
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_id'])) {
     }
 }
 
-// Обработка добавления записи
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['subject'])) {
     $subject = $_POST['subject'];
     $professor = $_POST['professor'];
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['subject'])) {
     }
 }
 
-// Получение расписания
+
 $stmt = $pdo->query("SELECT * FROM schedule");
 $schedule = $stmt->fetchAll();
 ?>
@@ -76,7 +76,7 @@ $schedule = $stmt->fetchAll();
 
         <h1 class="mb-4">Admin Panel</h1>
         
-        <!-- Форма для добавления расписания -->
+        
         <h2 class="mb-3">Add Schedule</h2>
         <form method="POST" action="">
             <div class="form-group">
@@ -98,7 +98,7 @@ $schedule = $stmt->fetchAll();
             <button type="submit" class="btn btn-primary btn-block">Add</button>
         </form>
         
-        <!-- Таблица расписания -->
+        
         <h2 class="mt-5 mb-3">Current Schedule</h2>
         <div class="table-responsive">
             <table class="table table-bordered">
