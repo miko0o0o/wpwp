@@ -1,33 +1,30 @@
 <?php
 session_start();
-require_once('config/db.php'); // Подключение к базе данных
+require_once('config/db.php'); 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    // Проверка, чтобы поля не были пустыми
+    
     if (empty($username) || empty($password)) {
         echo "<p style='color: red;'>Username and password cannot be empty.</p>";
         exit();
     }
 
-    // Подготовка SQL запроса
+    
     $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
     $stmt->execute([$username]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Проверяем, существует ли пользователь и совпадает ли пароль
+    
     if ($user) {
-        // Сравнение пароля (проверяем хешированный пароль)
         if (password_verify($password, $user['password'])) {
-            // Устанавливаем данные в сессии
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
-            // Редирект на страницу расписания
             header('Location: schedule.php');
-            exit(); // Прерываем выполнение
+            exit(); 
         } else {
             echo "<p style='color: red;'>Invalid password.</p>";
         }
